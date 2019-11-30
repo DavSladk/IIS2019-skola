@@ -17,10 +17,10 @@ CREATE TABLE IF NOT EXISTS courses (
     tags varchar(255) NOT NULL,
     price int NOT NULL,
     approved boolean NOT NULL DEFAULT 0,
-    userId int NOT NULL, #Guarantor
+    guarantor int NOT NULL, #Guarantor
 
     PRIMARY KEY(courseId),
-    FOREIGN KEY(userId) REFERENCES users(userId)
+    FOREIGN KEY(guarantor) REFERENCES users(userId)
 );
 
 CREATE TABLE IF NOT EXISTS lectors (
@@ -107,9 +107,9 @@ INSERT INTO users(userId, name, login, pass, role) VALUES(8, 'Radek Student', 'S
 INSERT INTO users(userId, name, login, pass, role) VALUES(9, 'Pavel Student', 'StudP', 'aaa', 'student');
 
 #COURSES
-INSERT INTO courses(courseId, name, description, type, tags, price, userId) VALUES(1, 'Course one','One one','type one','tag1,tag2',111,4);
-INSERT INTO courses(courseId, name, description, type, tags, price, userId) VALUES(2, 'Course two','Two two','type two','tag2,tag3',222,5);
-INSERT INTO courses(courseId, name, description, type, tags, price, userId) VALUES(3, 'Course three','Three three','type three','tag3',333,4);
+INSERT INTO courses(courseId, name, description, type, tags, price, guarantor) VALUES(1, 'Course one','One one','type one','tag1,tag2',111,4);
+INSERT INTO courses(courseId, name, description, type, tags, price, guarantor) VALUES(2, 'Course two','Two two','type two','tag2,tag3',222,5);
+INSERT INTO courses(courseId, name, description, type, tags, price, guarantor) VALUES(3, 'Course three','Three three','type three','tag3',333,4);
 
 #LECTORS
 INSERT INTO lectors(lectorId, userId, courseId) VALUES(1, 6, 1);
