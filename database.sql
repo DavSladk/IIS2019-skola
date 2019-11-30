@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS courses (
     tags varchar(255) NOT NULL,
     price int NOT NULL,
     approved boolean NOT NULL DEFAULT 0,
-    guarantor int NOT NULL, #Guarantor
+    guarantor int NOT NULL,
 
     PRIMARY KEY(courseId),
     FOREIGN KEY(guarantor) REFERENCES users(userId)

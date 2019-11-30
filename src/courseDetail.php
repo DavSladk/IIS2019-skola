@@ -2,7 +2,7 @@
     require_once 'functions/loader.php';
     
     //get course
-    $stmt = $pdo->prepare('SELECT * FROM courses WHERE courseId=:id'); //approved
+    $stmt = $pdo->prepare('SELECT C.name courseName, U.name userName, description, type, tags, price FROM courses C JOIN users U ON C.guarantor = U.userId WHERE courseId=:id'); //approved
     $stmt->bindParam(':id', $_GET['id']);
     $stmt->execute();
     $data = $stmt->fetch();
@@ -15,7 +15,9 @@
 ?>
 
         <h3>Name</h3>
-        <?php echo $data['name']?>
+        <?php echo $data['courseName']?>
+        <h3>Guarant</h3>
+        <?php echo $data['userName']?>
         <h3>Description</h3>
         <?php echo $data['description']?>
         <h3>Type</h3>
@@ -38,6 +40,7 @@
             {
 ?>
                 <form action="registerCourse.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $_GET['id']?>">
                     <input type="submit" name="unregister" value="Unregister" />
                 </form>
  
@@ -47,6 +50,7 @@
             {
 ?>
                 <form action="registerCourse.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $_GET['id']?>">
                     <input type="submit" name="register" value="Register" />
                 </form>             
 <?php

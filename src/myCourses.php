@@ -1,28 +1,30 @@
 <?php
     require_once 'functions/loader.php';
     
-    //get all courses
-    $queryResult = $pdo->query('SELECT * FROM courses WHERE approved = 0');
+    //get my courses
+    $stmt = $pdo->prepare('SELECT * FROM registred R JOIN courses C ON R.courseId = C.courseId WHERE R.userId = :userId');
+    $stmt->bindParam(':userId', $_SESSION['userId']);
+    $stmt->execute();
 
     require_once 'modules/header.php';
 
-//generate courses table 
+//generate my courses table 
 ?>
-    <h2>Courses</h2>
+    <h2>My Courses</h2>
     <table>
     <tr>
     <th>Name</th>
     <th>Type</th>
-    <th>Price</th>
+    <th>Score</th>
     </tr>
 <?php
-    foreach($queryResult as $row)
+    foreach($stmt as $row)
     {
 ?>
         <tr>
         <th><a href=<?php echo 'courseDetail.php?id='.$row['courseId']?>><?php echo $row['name']?></th>
         <th><?php echo $row['type']?></th>
-        <th><?php echo $row['price']?> Bitcoin</th>
+        <th><?php echo $row['score']?></th>
         </tr>
 <?php    
     }

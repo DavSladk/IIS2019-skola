@@ -9,10 +9,12 @@
 	<body>
 
 <?php
+    //named of logged user
     if(isset($_SESSION['ISSET']))
     {
         echo "user: ".$_SESSION['name'];
     }
+    //button to go back to overview
 ?>
     <form action="home.php" method="post">
             <input type="submit" value="Overwiev" />
@@ -21,6 +23,15 @@
 	//if logged user, generate menu
     if(isset($_SESSION['ISSET']))
     {
+        //if student, generate my sourses button
+        if(isStudent())
+        {
+?> 
+            <form action="myCourses.php" method="post">
+                <input type="submit" value="My Courses" />
+            </form>
+<?php            
+        }
 ?>
         <form action="logout.php" method="post">
             <input type="submit" value="Logout" />
