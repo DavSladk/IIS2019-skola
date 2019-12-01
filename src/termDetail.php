@@ -57,7 +57,7 @@
             $tmp->bindParam(':userId', $_SESSION['userId']);
             $tmp->bindParam(':termId', $_GET['id']);
             $tmp->execute();
-            $isGuarantor = $tmpGuar->fetch();
+            $isGuarantor = $tmp->fetch();
         }
     }
     
@@ -69,6 +69,7 @@
     require_once 'modules/header.php';
 ?>
     <!-- Detail block -->
+    <h1>Term details</h1>
     <h3>Name</h3>
         <?php echo $termDetailData['name']?>
     <h3>Type</h3>
@@ -108,7 +109,7 @@
         {
 ?>
             <tr>
-                <th><a href=<?php echo '../files/'.$row['fileId']?> download><?php echo $row['fileId']?></th>
+                <th><a href=<?php echo '../files/'.$_GET['id']."/".$row['fileName']?> download><?php echo $row['fileName']?></th>
             </tr>
 <?php    
         }
@@ -125,7 +126,8 @@
         $_SESSION['id'] = $_GET['id'];
 ?>
         <form action="uploadFile.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="fileToUpload">
+            <input type="hidden" name="termId" value="<?php echo $_GET['id'] ?>">
+            <input type="file" name="fileToUpload" required>
             <input type="submit" value="Upload File" name="submit">
         </form>
 <?php

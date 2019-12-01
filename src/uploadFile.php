@@ -1,7 +1,7 @@
 <?php
     require_once 'functions/loader.php';
 
-    $target_dir = "../files/";
+    $target_dir = "../files/".$_POST['termId']."/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = true;
     
@@ -21,9 +21,10 @@
 ?>
             Successful upload.
 <?php
-            $tmp = $pdo->prepare('INSERT INTO files (termId, fileId) VALUES (:termId, :fileId)');
-            $tmp->bindParam(':termId', $_SESSION['id']);
-            $tmp->bindParam(':fileId', basename($_FILES["fileToUpload"]["name"]));
+            chmod($target_file, 0666);
+            $tmp = $pdo->prepare('INSERT INTO files (termId, fileName) VALUES (:termId, :fileName)');
+            $tmp->bindParam(':termId', $_POST['termId']);
+            $tmp->bindParam(':fileName', basename($_FILES["fileToUpload"]["name"]));
             $tmp->execute();
         }
         else
@@ -36,6 +37,6 @@
 ?>
 
 <form action="termDetail.php" method="get">
-    <input type="hidden" name="id" value="<?php echo $_SESSION['id'] ?>">
+    <input type="hidden" name="id" value="<?php echo $_POST['termId'] ?>">
     <input type="submit" value="Back">
 </form>

@@ -113,7 +113,7 @@
                 <th>Type</th>
             </tr>
 <?php
-        foreach($stmt as $row)
+        foreach($guarantorCourses as $row)
         {
 ?>
             <tr>

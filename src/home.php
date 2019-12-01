@@ -45,5 +45,46 @@
 ?>
 
 <?php
+    if(isGuarantor())
+    {
+        ?>
+        <h3>Create course</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Tags</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <form action="createCourse.php" method="post">
+                    <th>
+                        <input type="text" name="name" required/>
+                    </th>
+                    <th>
+                        <input type="text" name="type" required/>
+                    </th>
+                    <th>
+                        <input type="text" name="tags" required/>
+                    </th>
+                    <th>
+                        <input type="number" name="price" required/>
+                    </th>
+                    <th>
+                        <input type="text" name="description" required/>
+                    </th>
+                    <th>
+                        <input type="hidden" name="userId" value="<?php echo $_SESSION['userId'] ?>">
+                        <input type="submit" name="createCourse" value="Create course">
+                    </th>
+                </form>
+            </tr>
+        </table>
+<?php       
+    }
+?>
+
+<?php
     require_once 'modules/footer.php';
 ?>

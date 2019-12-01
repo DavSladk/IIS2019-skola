@@ -47,7 +47,8 @@ CREATE TABLE IF NOT EXISTS terms (
 );
 
 CREATE TABLE IF NOT EXISTS files (
-    fileId varchar(255) NOT NULL,
+    fileId int NOT NULL AUTO_INCREMENT,
+    fileName varchar(255) NOT NULL,
     termId int NOT NULL,
 
     PRIMARY KEY(fileId),
@@ -126,9 +127,9 @@ INSERT INTO terms(termId, name, description, type, score, datetime, courseId) VA
 INSERT INTO terms(termId, name, description, type, score, datetime, courseId) VALUES(6, 'Term six', 'Six six', 'Lecture', 50, '2020-01-06 11:11:00', 3);
 
 #FILES
-INSERT INTO files(fileId, termId) VALUES('1.txt', 2);
-INSERT INTO files(fileId, termId) VALUES('2.txt', 4);
-INSERT INTO files(fileId, termId) VALUES('3.txt', 6);
+INSERT INTO files(fileId, fileName, termId) VALUES(1, '1.txt', 2);
+INSERT INTO files(fileId, fileName, termId) VALUES(2, '2.txt', 4);
+INSERT INTO files(fileId, fileName, termId) VALUES(3, '3.txt', 6);
 
 #ROOMS
 INSERT INTO rooms(roomId, address, doorNumber, type, capacity) VALUES(1, 'Address 1', 'A111', 'Type one', 11);
