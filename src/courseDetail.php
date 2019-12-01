@@ -26,6 +26,7 @@
     }
 
     $isRegistred = false;
+    $isLector = false;
     $isGuarantor = false;
     if(isset($_SESSION['ISSET']))
     {
@@ -37,6 +38,16 @@
             $tmp->bindParam(':courseId', $_GET['id']);
             $tmp->execute();
             $isRegistred = $tmp->fetch();
+        }
+
+        if(isLector())
+        {
+            //is this user lector for this course?
+            $tmp = $pdo->prepare('SELECT * FROM lectors L JOIN courses C ON L.courseId = C.courseId WHERE L.userId = :userId AND C.courseId = :courseId');
+            $tmp->bindParam(':userId', $_SESSION['userId']);
+            $tmp->bindParam(':courseId', $_GET['id']);
+            $tmp->execute();
+            $isLector = $tmp->fetch();
         }
         
         if(isGuarantor())
@@ -151,7 +162,10 @@
     </table>
 
 <!-- TO DO add term-->
-
+<?php
+    if($isLector)
+    {
+?>
     <!-- Approved Student list -->
     <h2>Approved students list</h2>
     <table>
@@ -161,7 +175,6 @@
             <th>Score</th>
         </tr>
 <?php
-        // $_SESSION['id'] = $_GET['id'];
         foreach($approvedStudents as $row)
         {
 ?>
@@ -181,6 +194,7 @@
             </tr>
 <?php    
         }
+    }
 ?>
     </table>
 <?php
