@@ -2,13 +2,13 @@
     require_once 'functions/loader.php';
     
     //get all courses
-    $queryResult = $pdo->query('SELECT * FROM courses WHERE approved = 0');
+    $queryResult = $pdo->query('SELECT * FROM courses'); //approved
 
     require_once 'modules/header.php';
 
 //generate courses table 
 ?>
-    <h2>Courses</h2>
+    <h2>All Courses</h2>
     <table>
     <tr>
     <th>Name</th>
